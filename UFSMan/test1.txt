@@ -1,0 +1,137 @@
+ create table patient(pno char(9) not null,sname char(30) not null,page int not null,primary key (pno));
+
+ create table major(mano char(1) not null,maname char(50) not null,primary key (mano));
+
+ create table testproject(tpno char(9) not null,tpname char(50) not null,tpprice int not null,primary key (tpno));
+
+ create table payproject(ppno char(9) not null,ppname char(50) not null,price int,primary key (ppno));
+
+ create table medicine(mno char (9) not null,mname char(50) not null,store int not null,price int not null,primary key (mno));
+
+ create table disease(disno char (9) not null,disname char(50) not null,primary key (disno));
+
+create table doctor(dno char(9) not null,dpassword char(6),dname char(30) not null,dage int not null,
+majorno char(1) not null,primary key (dno),foreign key(majorno) references major(mano));
+
+ create table visitingr(pno char(9) not null,dno char(9) not null,disno char(9),tpno char(9) not null,vdate date not null,
+mrno char(30),primary key (pno,dno),foreign key (pno) references patient (pno),
+foreign key (dno) references doctor (dno),
+foreign key (disno) references disease (disno));
+
+ create table testr(pno char(9) not null,
+dno char(9) not null,
+tdno char(9) not null,
+tpno char(9) not null,
+result int,
+primary key(pno,dno,tdno),
+foreign key (dno) references doctor (dno),
+foreign key (pno) references patient (pno));
+
+ create table payr(pno char(9) not null,
+ppno char(9) not null,
+cost int ,
+dno char(9) not null,
+primary key(pno,ppno),
+foreign key (dno) references doctor (dno),
+foreign key (pno) references patient (pno),
+foreign key (ppno) references payproject (ppno));
+
+
+ create table mediciner(mrno char(30) not null,
+much int not null,
+medno1 char(9),
+medno2 char(9),
+medno3 char(9),
+medno4 char(9),
+primary key(mrno),
+foreign key (medno1) references medicine (mno),
+foreign key (medno2) references medicine (mno),
+foreign key (medno3) references medicine (mno),
+foreign key (medno4) references medicine (mno)
+);
+
+
+
+  insert into major values('1','缴费科');
+
+   insert into major values('2','化验科');
+
+   insert into major values('3','外科');
+
+   insert into major values('4','内科');
+
+   insert into major values('5','牙科');
+
+   insert into major values('6','耳鼻科');
+
+  insert into testproject values('1','验血',15);
+
+  insert into testproject values('2','血常规',30);
+
+  insert into testproject values('3','验尿',10);
+
+  insert into testproject values('4','验屎',12);
+
+  insert into disease values('1','感冒');
+
+   insert into disease values('2','发烧');
+
+   insert into disease values('3','外伤');
+
+   insert into disease values('4','牙病');
+
+   insert into disease values('5','鼻炎');
+
+  insert into payproject values('1','挂号',2);
+
+ insert into doctor values('010100001','sb0101','张一',20,'1');
+
+ insert into doctor values('010100002','sb0102','张二',20,'1');
+
+ insert into doctor values('010100003','sb0103','张三',22,'1');
+
+ insert into doctor values('020200001','sb0201','王一',20,'2');
+  
+ insert into doctor values('020200002','sb0202','王二',21,'2');
+
+ insert into doctor values('020200003','sb0203','王三',22,'2');
+
+ insert into doctor values('020200004','sb0204','王四',23,'2');
+
+ insert into doctor values('030300001','sb0301','丁一',20,'3');
+
+  insert into doctor values('030300002','sb0302','丁二',21,'3');
+
+  insert into doctor values('040400001','sb0401','吴一',20,'4');
+
+  insert into doctor values('040400002','sb0402','吴二',21,'4');
+
+  insert into doctor values('040400003','sb0403','吴三',22,'4');
+
+  insert into doctor values('050500001','sb0501','黄一',20,'5');
+
+  insert into doctor values('050500002','sb0502','黄二',21,'5');
+
+  insert into doctor values('060600001','sb0601','杨一',20,'6');
+
+  insert into doctor values('060600002','sb0602','杨二',21,'6');
+
+insert into medicine values('161100001','感冒灵',100,5);
+
+insert into medicine values('161100002','葡萄糖溶液',100,2);
+
+insert into medicine values('161100003','退烧药',100,10);
+
+insert into medicine values('161100004','阿莫西林',150,8);
+
+insert into medicine values('161100005','达克宁',200,12);
+
+insert into medicine values('161100006','板蓝根颗粒',300,7);
+
+insert into medicine values('161100007','西瓜霜润喉片',200,6);
+
+insert into medicine values('161100008','枇杷露',250,7);
+
+insert into medicine values('161100009','生理盐水',500,3);
+
+insert into medicine values('161100010','维生素B1',240,4);
